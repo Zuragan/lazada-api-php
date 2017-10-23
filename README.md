@@ -4,7 +4,7 @@ Unofficial PHP Wrapper for Lazada API
 
 # Overview
 * Wraps Lazada API in PHP according to example shown [here](https://lazada-sellercenter.readme.io/docs/signing-requests)
-* For complete API reference, go to [the official documentation](https://lazada-sellercenter.readme.io)
+* For complete API reference, please go to [the official documentation](https://lazada-sellercenter.readme.io)
 
 # Installation
 ```
@@ -30,7 +30,7 @@ var_dump($response);
 
 # Disclaimer
 * This is not an official SDK from Lazada
-* This library is subject to change without notice to keep it updated with Lazada's API
+* This library may be changed without notice to keep it updated with Lazada's API
 * This library is provided as is, without any warranty and can be broken anytime Lazada create breaking changes in their API.
 
 # Contributing
@@ -39,3 +39,6 @@ var_dump($response);
 * Code contribution
     * Fork this repository
     * Create pull request
+
+# License
+* MIT
