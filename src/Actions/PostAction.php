@@ -31,24 +31,22 @@ class PostAction extends ActionBase
     public function getXMLPayload()
     {
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Request/>');
-		$this->recursiveArrayToXml($this->payload, $xml);
-		return $xml->asXML();
+        $this->recursiveArrayToXml($this->payload, $xml);
+        return $xml->asXML();
     }
 
     private function recursiveArrayToXml($data, SimpleXMLElement &$xmlData)
     {
-		foreach($data as $key => $value) {
-			if(is_numeric($key)){
-				$key = 'item'.$key; //dealing with <0/>..<n/> issues
-			}
-			if(is_array($value)) {
-				$subnode = $xmlData->addChild($key);
-                $parentKey = $key;
-                //echo "Parent: " . $parentKey;
-				$this->recursiveArrayToXml($value, $subnode);
-			} else {
-				$xmlData->addChild("$key", htmlspecialchars("$value"));
-			}
-		}
+        foreach($data as $key => $value) {
+            if(is_numeric($key)){
+                $key = 'item'.$key; //dealing with <0/>..<n/> issues
+            }
+            if(is_array($value)) {
+                $subnode = $xmlData->addChild($key);
+                $this->recursiveArrayToXml($value, $subnode);
+            } else {
+                $xmlData->addChild("$key", htmlspecialchars("$value"));
+            }
+        }
     }
 }
