@@ -1,0 +1,25 @@
+{
+    "name": "zuragan/lazada-api-php",
+    "type": "library",
+    "description": "Lazada Seller API wrapper",
+    "license": "MIT",
+    "keywords": ["API", "Lazada", "wrapper"],
+    "authors": [
+        {
+            "name": "Arseto Nugroho",
+            "email": "satriyo.796@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "vlucas/phpdotenv": "^2.4",
+        "phpunit/phpunit": "^6.4"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Zuragan\\Lazada\\": "src/"
+        }
+    }
+}
