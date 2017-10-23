@@ -5,15 +5,14 @@ namespace Zuragan\Lazada\Actions;
 abstract class ActionBase
 {
     protected $userId;
-    protected $apiKey;
     protected $version;
     protected $format;
     protected $action;
     protected $parameters;
+    protected $signature;
 
     public function __construct(
         $userId,
-        $apiKey,
         $version,
         $format,
         $action,
@@ -21,7 +20,6 @@ abstract class ActionBase
         \DateTime $timestamp = null
     ){
         $this->userId = $userId;
-        $this->apiKey = $apiKey;
         $this->version = $version;
         $this->format = strtoupper($format);
         $this->action = $action;
@@ -37,7 +35,7 @@ abstract class ActionBase
         $this->timestamp = $timestamp;
     }
 
-    public function getUnsignedParams()
+    private function getUnsignedParams()
     {
         $unsigned = $this->getParamArray();
         ksort($unsigned);
@@ -57,10 +55,10 @@ abstract class ActionBase
         return array_merge($mainParams, $this->parameters);
     }
 
-    public function getSignedParams()
+    public function getParameters()
     {
         $params = $this->getUnsignedParams();
-        $params['Signature'] = $this->generateSignature($this->apiKey);
+        $params['Signature'] = $this->signature;
         return $params;
     }
 
@@ -69,7 +67,7 @@ abstract class ActionBase
         return strtoupper($this->format) == 'JSON';
     }
 
-    private function generateSignature($apiKey)
+    public function sign($apiKey)
     {
         $encoded = array();
         foreach ($this->getUnsignedParams() as $name => $value) {
@@ -82,8 +80,8 @@ abstract class ActionBase
         // The API key for the user as generated in the Seller Center GUI.
         // Must be an API key associated with the UserID parameter.
 
-        // Compute signature and add it to the parameters.
-        $signature = rawurlencode(hash_hmac('sha256', $concatenated, $apiKey, false));
-        return $signature;
+        // Compute signature
+        $this->signature = rawurlencode(
+            hash_hmac('sha256', $concatenated, $apiKey, false));
     }
 }

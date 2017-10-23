@@ -18,22 +18,22 @@ class ActionFactory
 
     public function getAction($action, $parameters = [], $timestamp = null)
     {
-        return new GetAction(
+        $action = new GetAction(
             $this->userId,
-            $this->apiKey,
             $this->version,
             $this->format,
             $action,
             $parameters,
             $timestamp
         );
+        $action->sign($this->apiKey);
+        return $action;
     }
 
     public function postAction($action, $parameters = [], $payload = [], $timestamp = null)
     {
-        return new PostAction(
+        $action = new PostAction(
             $this->userId,
-            $this->apiKey,
             $this->version,
             $this->format,
             $action,
@@ -41,7 +41,8 @@ class ActionFactory
             $timestamp,
             $payload
         );
-
+        $action->sign($this->apiKey);
+        return $action;
     }
 
 }

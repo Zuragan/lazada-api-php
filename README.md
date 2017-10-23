@@ -8,12 +8,14 @@ Unofficial PHP Wrapper for Lazada API
 
 # Installation
 ```
-composer require zuragan/lazada-api-php
+~$ composer require zuragan/lazada-api-php
 ```
 
 # Example Usage
 
-```
+* GET
+
+```php
 //Create API instance
 $api = new LazadaAPI($baseUrl);
 
@@ -27,6 +29,32 @@ $response = $api->get($action);
 //debug: dump response
 var_dump($response);
 ```
+
+* POST
+
+```php
+//Create API instance
+$api = new LazadaAPI($baseUrl);
+
+//Create action using factory, get or post action is supported
+$factory = new ActionFactory($userEmail, $userAPIKey);
+$payload = [
+    "Attributes" => [
+        "name" => "Example",
+        "description" => "Short description",
+    ],
+];
+$action = $factory->postAction('ActionName', [ 'Parameter' => 'ParamValue' ], $payload);
+
+//Execute API Command
+$response = $api->post($action);
+
+//debug: dump response
+var_dump($response);
+```
+
+# Known Limitation(s)
+* Due to PHP array limitation used in post payload when converting to XML format, multiple child element with same name cannot be generated (because PHP array keys must be unique)
 
 # Disclaimer
 * This is not an official SDK from Lazada

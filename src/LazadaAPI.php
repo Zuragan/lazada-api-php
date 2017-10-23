@@ -29,7 +29,7 @@ class LazadaAPI
     public function get(GetAction $action)
     {
         return $this->curlGET(
-            $action->getSignedParams(),
+            $action->getParameters(),
             $action->isJSON()
         );
     }
@@ -37,7 +37,7 @@ class LazadaAPI
     public function post(PostAction $action)
     {
         return $this->curlPOST(
-            $action->getSignedParams(),
+            $action->getParameters(),
             $action->getXMLPayload(),
             $action->isJSON()
         );
