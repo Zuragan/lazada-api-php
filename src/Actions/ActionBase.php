@@ -17,7 +17,7 @@ abstract class ActionBase
         $format,
         $action,
         $parameters,
-        $timestamp = null
+        \DateTime $timestamp = null
     ){
         $this->userId = $userId;
         $this->version = $version;
